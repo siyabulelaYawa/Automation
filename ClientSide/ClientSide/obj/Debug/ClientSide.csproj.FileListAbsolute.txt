@@ -1,0 +1,6 @@
+C:\Users\S4\source\repos\ClientSide\ClientSide\bin\Debug\ClientSide.exe.config
+C:\Users\S4\source\repos\ClientSide\ClientSide\bin\Debug\ClientSide.exe
+C:\Users\S4\source\repos\ClientSide\ClientSide\bin\Debug\ClientSide.pdb
+C:\Users\S4\source\repos\ClientSide\ClientSide\obj\Debug\ClientSide.csprojAssemblyReference.cache
+C:\Users\S4\source\repos\ClientSide\ClientSide\obj\Debug\ClientSide.exe
+C:\Users\S4\source\repos\ClientSide\ClientSide\obj\Debug\ClientSide.pdb
