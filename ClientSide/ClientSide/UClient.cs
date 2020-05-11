@@ -32,13 +32,13 @@ public class UClient
 
 			//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"EXCEL\";\"OPEN\";\"c:/log/testfile.xlsx\";}");
 			//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"WEB\";\"OPEN\";\"https://youtube.com\";}") ;
-			Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"WEB\";\"ENTERTEXT\";\"https://facebook.com\";\"siyabulela.yawa.9@facebook.com\";\"siyayawa\";}") ;
+			//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"WEB\";\"ENTERTEXT\";\"https://facebook.com\";\"siyabulela.yawa.9@facebook.com\";\"siyayawa\";}") ;
 
 			//public int SendMail(string fromAddress, string toAddress, string subject, string messageBody, string username, string password)
 
 			//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"MAIL\";\"SEND\";\"siyayawa32@gmail.com\";\"siyayawa32@gmail.com\";\"siyayawa32@gmail.com\";\"siyayawa32@gmail.com\";\"siyayawa32@gmail.com\";\"Mehlulwa2010*\"}") ;
 
-			client.Send(sendBytes, sendBytes.Length);
+			//client.Send(sendBytes, sendBytes.Length);
 
 			IPEndPoint recv = new IPEndPoint(IPAddress.Any, 13001);
 
@@ -199,6 +199,7 @@ public class UClient
 	}
 	private void entertextWeb()
 	{
+		//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"WEB\";\"ENTERTEXT\";\"https://facebook.com\";\"siyabulela.yawa.9@facebook.com\";\"siyayawa\";}") ;
 
 	}
 

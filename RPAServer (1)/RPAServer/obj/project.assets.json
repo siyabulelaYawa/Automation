@@ -460,11 +460,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\S4\\Downloads\\RPAServer (1)\\RPAServer\\RPAServer.csproj",
+      "projectUniqueName": "C:\\Automation\\RPAServer (1)\\RPAServer\\RPAServer.csproj",
       "projectName": "RPAServer",
-      "projectPath": "C:\\Users\\S4\\Downloads\\RPAServer (1)\\RPAServer\\RPAServer.csproj",
+      "projectPath": "C:\\Automation\\RPAServer (1)\\RPAServer\\RPAServer.csproj",
       "packagesPath": "C:\\Users\\S4\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\S4\\Downloads\\RPAServer (1)\\RPAServer\\obj\\",
+      "outputPath": "C:\\Automation\\RPAServer (1)\\RPAServer\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
