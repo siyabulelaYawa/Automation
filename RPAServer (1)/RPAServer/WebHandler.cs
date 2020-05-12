@@ -18,7 +18,8 @@ namespace CoreServer
 
             GlobalObject global = GlobalObject.Instance;
 
-            Guid id = Guid.NewGuid();
+            
+                Guid id = Guid.NewGuid();
 
             global.fileIndex.Add(id.ToString(), driver);
 
@@ -30,18 +31,19 @@ namespace CoreServer
 
 
 
-            IWebDriver driver;
-            driver = new ChromeDriver();
-            driver.Url = id;
+            //IWebDriver driver;
+            //driver = new ChromeDriver();
+            //driver.Url = url;
 
-            driver.FindElement(By.Id("email")).SendKeys(elementId);
-            driver.FindElement(By.Id("pass")).SendKeys(text);
-            ClickAndWaitForPageToLoad(driver, By.Id("loginbutton"));
-            /*
+            //driver.FindElement(By.Id(elementId)).SendKeys(text);
+            //  driver.FindElement(By.Id("pass")).SendKeys(text);
+            // ClickAndWaitForPageToLoad(driver, By.Id("loginbutton"));
+           
 
-            id = "https://support.google.com/accounts/answer/6010255?hl=en";
-            elementId = "csi";
-            text="World!";
+            //id = "https://support.google.com/accounts/answer/6010255?hl=en";
+            //elementId = "csi";
+            //text="World!";
+            
             GlobalObject global = GlobalObject.Instance;
 
             IWebDriver driver;
@@ -60,13 +62,20 @@ namespace CoreServer
             }
 
             driver.FindElement(By.Name(elementId)).SendKeys(text);
-            */
+            
 
             return Result.OK;
         }
 
         public string ReadText(string id, string elementId)
         {
+
+            //IWebDriver driver;
+            //driver = new ChromeDriver();
+            //driver.Url = url;
+
+            //string text = driver.FindElement(By.Id(elementId)).Text;
+            //return text;
             GlobalObject global = GlobalObject.Instance;
 
             IWebDriver driver;
@@ -84,11 +93,22 @@ namespace CoreServer
                 return "";
             }
 
-            return driver.FindElement(By.ClassName(elementId)).Text;
+            return driver.FindElement(By.Name(elementId)).Text;
         }
 
         public int ClickButton(string id, string elementId)
         {
+            //IWebDriver driver;
+            //driver = new ChromeDriver();
+            //driver.Url = url;
+
+            ///// driver.FindElement(By.Id(elementId)).SendKeys(text);
+            ////  driver.FindElement(By.Id("pass")).SendKeys(text);
+
+            //   return ClickAndWaitForPageToLoad(driver, By.Id(elementId));
+
+
+
             GlobalObject global = GlobalObject.Instance;
 
             IWebDriver driver;
@@ -102,68 +122,69 @@ namespace CoreServer
                 driver = (IWebDriver)tempObject;
             }
             else
-            {
+            {  
+               
                 return Result.NOK;
             }
 
-            driver.FindElement(By.XPath("//input[@type='" + elementId + "']")).Click();
-
+            // driver.FindElement(By.XPath("//input[@type='" + elementId + "']")).Click();
+           ClickAndWaitForPageToLoad(driver, By.Id(elementId));
             return Result.OK;
         }
 
-        public int CloseBrowser(string id)
-        {
-            GlobalObject global = GlobalObject.Instance;
+public int CloseBrowser(string id)
+{
+    GlobalObject global = GlobalObject.Instance;
 
-            IWebDriver driver;
+    IWebDriver driver;
 
-            Object tempObject;
+    Object tempObject;
 
-            global.fileIndex.TryGetValue(id, out tempObject);
+    global.fileIndex.TryGetValue(id, out tempObject);
 
-            if (tempObject is IWebDriver)
-            {
-                driver = (IWebDriver)tempObject;
-            }
-            else
-            {
-                return Result.NOK;
-            }
-
-            driver.Close();
-            driver.Dispose();
-
-            global.fileIndex.Remove(id);
-
-            return Result.OK;
-        }
-
-
-        private void ClickAndWaitForPageToLoad(IWebDriver driver,
-                By elementLocator, int timeout = 10)
-        {
-            try
-            {
-                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
-                var elements = driver.FindElements(elementLocator);
-                if (elements.Count == 0)
-                {
-                    throw new NoSuchElementException(
-                        "No elements " + elementLocator + " ClickAndWaitForPageToLoad");
-                }
-                var element = elements.FirstOrDefault(e => e.Displayed);
-                element.Click();
-                //wait.Until(ExpectedConditions.StalenessOf(element));
-            }
-            catch (NoSuchElementException)
-            {
-                Console.WriteLine(
-                    "Element with locator: '" + elementLocator + "' was not found.");
-                throw;
-            }
-        }
+    if (tempObject is IWebDriver)
+    {
+        driver = (IWebDriver)tempObject;
     }
-    
+    else
+    {
+        return Result.NOK;
+    }
+
+    driver.Close();
+    driver.Dispose();
+
+    global.fileIndex.Remove(id);
+
+    return Result.OK;
+}
+
+
+private int ClickAndWaitForPageToLoad(IWebDriver driver,
+    By elementLocator, int timeout = 10)
+    {
+        try
+        {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
+            var elements = driver.FindElements(elementLocator);
+            if (elements.Count == 0)
+            {
+                            return Result.NOK;
+            }
+            var element = elements.FirstOrDefault(e => e.Displayed);
+            element.Click();
+            //wait.Until(ExpectedConditions.StalenessOf(element));
+        }
+        catch (NoSuchElementException)
+        {
+            Console.WriteLine(
+                "Element with locator: '" + elementLocator + "' was not found.");
+                        return Result.NOK;
+        }
+                return Result.OK;
+        }
+    }   
+
 }
 
 

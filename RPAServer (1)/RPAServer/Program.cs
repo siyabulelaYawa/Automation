@@ -12,24 +12,35 @@ namespace CoreServer
 
         static void Main(string[] args)
         {
-            /*
-            UdpClient client = new UdpClient(13000);
-            client.Connect("127.0.0.1", 13001);
-            Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"EXCEL\";\"CREATE\";\"c:/log/testfile.xlsx\";}");
 
-            client.Send(sendBytes, sendBytes.Length);
-            */
-            
             Thread t = new Thread(delegate ()
             {
                 // replace the IP with your system IP Address...
-                Server myserver = new Server("127.0.0.1", 13001);
-               // Server myServer = new Server("1", 2);
+                //Server myserver = new Server("127.0.0.1", 13000);
+                Server myServer = new Server("1", 2);
             });
             t.Start();
 
             Console.WriteLine("Server Started...!");
-            
+            //test();
+        }
+        private static void test()
+        {
+
+
+            var Server = new UdpClient(8888);
+            var ResponseData = Encoding.ASCII.GetBytes("SomeResponseData");
+
+            while (true)
+            {
+                var ClientEp = new IPEndPoint(IPAddress.Any, 0);
+                var ClientRequestData = Server.Receive(ref ClientEp);
+                var ClientRequest = Encoding.ASCII.GetString(ClientRequestData);
+
+                Console.WriteLine("Recived {0} from {1}, sending response", ClientRequest, ClientEp.Address.ToString());
+                Server.Send(ResponseData, ResponseData.Length, ClientEp);
+            }
         }
     }
+    
 }

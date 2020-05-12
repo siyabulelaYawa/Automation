@@ -34,6 +34,7 @@ namespace CoreServer
             GlobalObject global = GlobalObject.Instance;
 
             ExcelPackage excelFile;
+            
 
             Object tempObject;
 

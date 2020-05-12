@@ -13,7 +13,9 @@ public class UClient
 	private Byte[] bytes = new Byte[256];
 	private string instruction = @"COMMAND{\";
 	UdpClient client = null;
-
+	string processid="";
+	IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13000);
+	IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
 	public UClient()
 	{
 		Connect();
@@ -21,16 +23,18 @@ public class UClient
 
 	public void Connect()
 	{
-		 client = new UdpClient(13001);
+		client = new UdpClient(13001);
 		try
 		{
 
-			client.Connect(ip, 13000);
+			//client.Connect(ip, 13000);
 
 			//Byte[] sendBytes = Encoding.ASCII.GetBytes("Client connected");
 
 
 			//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"EXCEL\";\"OPEN\";\"c:/log/testfile.xlsx\";}");
+			//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"PDF\";\"OPEN\";\"c:/log/TEST.pdf\";}");
+
 			//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"WEB\";\"OPEN\";\"https://youtube.com\";}") ;
 			//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"WEB\";\"ENTERTEXT\";\"https://facebook.com\";\"siyabulela.yawa.9@facebook.com\";\"siyayawa\";}") ;
 
@@ -38,20 +42,23 @@ public class UClient
 
 			//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"MAIL\";\"SEND\";\"siyayawa32@gmail.com\";\"siyayawa32@gmail.com\";\"siyayawa32@gmail.com\";\"siyayawa32@gmail.com\";\"siyayawa32@gmail.com\";\"Mehlulwa2010*\"}") ;
 
+			//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"MAIL\";\"SEND\";\"odwakatywa1@gmail.com\";\"odwakatywa1@gmail.com\";\"Subject\";\"Body\";\"odwakatywa1@gmail.com\";\"odwa200196*\"}");
+
+
 			//client.Send(sendBytes, sendBytes.Length);
 
-			IPEndPoint recv = new IPEndPoint(IPAddress.Any, 13001);
+			//IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
 
-			/*
-			Byte[] receiveBytes = client.Receive(ref recv);
+			
+			//Byte[] receiveBytes = client.Receive(ref recv);
 
-			string returnData = Encoding.ASCII.GetString(receiveBytes);
+			//string returnData = Encoding.ASCII.GetString(receiveBytes);
 
-			Console.WriteLine("Result: " + returnData.ToString());
+			//Console.WriteLine("Result: " + returnData.ToString());
 
-			Console.WriteLine("Result sent from : " + recv.Address.ToString()
-				+ " on their port number " + recv.Port.ToString());
-				*/
+			//Console.WriteLine("Result sent from : " + recv.Address.ToString()
+			//	+ " on their port number " + recv.Port.ToString());/*
+			//	*/
 		}
 		catch (Exception e)
 		{
@@ -63,42 +70,46 @@ public class UClient
 
 	public void mainMenu()
 	{
-
-		Console.WriteLine("Main Menu");
-		Console.WriteLine("");
-
-		int choice;
-
-
-		Console.WriteLine("1. EXCEL");
-		Console.WriteLine("2. WEB");
-		Console.WriteLine("3. PDF");
-		Console.WriteLine("4. MAIL");
-		Console.WriteLine("5. EXIT");
-
-		Console.WriteLine("Enter option: ");
-		choice = int.Parse(Console.ReadLine());
-
-		switch (choice)
+		while (true)
 		{
-			case 1:
-				instruction += "\\\"EXCEL\\\";";
-				excelMenu();
-				break;
-			case 2:
-				instruction += "\\\"WEB\\\";";
-				webMenu();
-				break;
-			case 3:
-				pdfMenu();
-				break;
-			case 4:
-				instruction += "\\\"MAIL\\\";";
-				mailMenu();
-				break;
-			case 5:
-				return;
-				//break;
+		instruction = @"COMMAND{\";
+	Console.WriteLine("Main Menu");
+			Console.WriteLine("");
+
+			int choice;
+
+
+			Console.WriteLine("1. EXCEL");
+			Console.WriteLine("2. WEB");
+			Console.WriteLine("3. PDF");
+			Console.WriteLine("4. MAIL");
+			Console.WriteLine("5. EXIT");
+
+			Console.WriteLine("Enter option: ");
+			choice = int.Parse(Console.ReadLine());
+
+			switch (choice)
+			{
+				case 1:
+					instruction += "\\\"EXCEL\\\";";
+					excelMenu();
+					break;
+				case 2:
+					instruction += "\\\"WEB\\\";";
+					webMenu();
+					break;
+				case 3:
+					instruction+="\\\"PDF\\\";";
+					pdfMenu();
+					break;
+				case 4:
+					instruction += "\\\"MAIL\\\";";
+					mailMenu();
+					break;
+				case 5:
+					return;
+					//break;
+			}
 		}
 
 	}
@@ -107,23 +118,36 @@ public class UClient
 		Console.WriteLine("Enter url");
 		string url = Console.ReadLine();
 
-		instruction += "\""+ url;
+		instruction += "\"" + url;
 		instruction += "\\\";}";
 		Console.WriteLine(instruction);
 		//Console.ReadLine();
 		//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"WEB\";\"OPEN\";\"https://youtube.com\";}") ;
 		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
 
-		client.Send(sendBytes, sendBytes.Length);
+		client.Send(sendBytes, sendBytes.Length,server);
+		//client.Send(sendBytes, sendBytes.Length);
 
 
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
 
+			
+			Byte[] receiveBytes = client.Receive(ref recv);
+
+			string returnData = Encoding.ASCII.GetString(receiveBytes);
+		processid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
 	}
 
 	private void mailMenu()
 	{
 		Console.WriteLine("1. SEND");
-		int choice =int.Parse( Console.ReadLine());
+		int choice = int.Parse(Console.ReadLine());
 
 		switch (choice)
 		{
@@ -136,8 +160,8 @@ public class UClient
 	}
 	private void sendMail()
 	{
-		
-	//	public int SendMail(string fromAddress, string toAddress, string subject, string messageBody, string username, string password)
+
+		//	public int SendMail(string fromAddress, string toAddress, string subject, string messageBody, string username, string password)
 		//client.Send(sendBytes, sendBytes.Length);
 
 		Console.WriteLine("Enter email address to send FROM ");
@@ -152,7 +176,7 @@ public class UClient
 		string subject = Console.ReadLine();
 		Console.WriteLine("Enter message body ");
 		string body = Console.ReadLine();
-		instruction += "\\\""+from+"\\\";";
+		instruction += "\\\"" + from + "\\\";";
 		instruction += "\\\"" + to + "\\\";";
 		instruction += "\\\"" + subject + "\\\";";
 		instruction += "\\\"" + body + "\\\";";
@@ -176,7 +200,7 @@ public class UClient
 		Console.WriteLine("2. ENTERTEXT");
 		Console.WriteLine("3. READTEXT");
 		Console.WriteLine("4. CLICK");
-		Console.WriteLine("5. close");
+		Console.WriteLine("5. CLOSE");
 		Console.WriteLine("6. CLICK");
 		Console.WriteLine("7. CLICK");
 
@@ -192,17 +216,82 @@ public class UClient
 				instruction += "\\\"ENTERTEXT\\\";";
 				entertextWeb();
 				break;
+			case 3:
+				instruction += "\\\"READTEXT\\\";";
+				readtextWeb();
+				break;
 
-
+			case 4:
+				instruction += "\\\"CLICK\\\";";
+				clickWeb();
+				break;
 		}
 
 	}
 	private void entertextWeb()
 	{
-		//Byte[] sendBytes = Encoding.ASCII.GetBytes("COMMAND{\"WEB\";\"ENTERTEXT\";\"https://facebook.com\";\"siyabulela.yawa.9@facebook.com\";\"siyayawa\";}") ;
 
+
+		Console.WriteLine("Enter wed id");
+		string url = Console.ReadLine();
+		Console.WriteLine("Enter Control ID");
+		string id = Console.ReadLine();
+		Console.WriteLine("Enter text");
+		string text = Console.ReadLine();
+		instruction += "\\\"" + url + "\\\";";
+		instruction += "\\\"" + id + "\\\";";
+		instruction += "\\\"" + text + "\\\";";
+
+
+		Console.WriteLine(instruction);
+		Console.ReadLine();
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length);
 	}
+	private void readtextWeb()
+	{
 
+		Console.WriteLine("Enter wed id");
+		string url = Console.ReadLine();
+		Console.WriteLine("Enter Control ID");
+		string id = Console.ReadLine();
+
+
+
+		instruction += "\\\"" + url + "\\\";";
+		instruction += "\\\"" + id + "\\\";";
+
+
+		Console.WriteLine(instruction);
+		Console.ReadLine();
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length);
+	}
+	private void clickWeb()
+	{
+
+
+		Console.WriteLine("Enter wed id");
+		string url = Console.ReadLine();
+		Console.WriteLine("Enter Control ID");
+		string id = Console.ReadLine();
+
+		instruction += "\\\"" + url + "\\\";";
+		instruction += "\\\"" + id + "\\\";";
+
+
+
+		Console.WriteLine(instruction);
+		Console.ReadLine();
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length);
+	}
 	private void excelMenu()
 	{
 		Console.WriteLine("Excel Menu");
@@ -234,7 +323,7 @@ public class UClient
 				instruction += "\\\"SAVE\\\";";
 				saveSpreadsheet();
 				break;
-			default :
+			default:
 				Console.WriteLine("Unknown action quitting");
 				return;
 				//break;
@@ -258,7 +347,7 @@ public class UClient
 		string path = Console.ReadLine();
 		Console.WriteLine("Enter the name of the file you want to create: ");
 		string filename = Console.ReadLine();
-		instruction += "\\"+path+filename;
+		instruction += "\\" + path + filename;
 		instruction += "\";}";
 		Console.WriteLine(instruction);
 		Console.ReadLine();

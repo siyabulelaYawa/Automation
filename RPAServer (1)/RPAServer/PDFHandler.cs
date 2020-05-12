@@ -1,8 +1,9 @@
-﻿/*using IronPdf;
+﻿using IronPdf;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Diagnostics;
+using System.Threading;
 namespace CoreServer
 {
     class PDFHandler
@@ -12,12 +13,19 @@ namespace CoreServer
             PdfDocument document = null;
 
             document = PdfDocument.FromFile(path);
-
+            
             GlobalObject global = GlobalObject.Instance;
 
             Guid id = Guid.NewGuid();
+            
+            Process process= Process.Start(path);
 
             global.fileIndex.Add(id.ToString(), document);
+         
+            
+           
+            Thread.Sleep(2000);
+            process.Kill();
 
             return id.ToString();
         }
@@ -71,4 +79,4 @@ namespace CoreServer
         }
 
     }
-}*/
+}

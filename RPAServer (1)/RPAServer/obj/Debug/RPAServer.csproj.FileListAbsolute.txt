@@ -38,3 +38,5 @@ C:\Automation\RPAServer (1)\RPAServer\obj\Debug\RPAServer.csprojAssemblyReferenc
 C:\Automation\RPAServer (1)\RPAServer\obj\Debug\RPAServer.csproj.CopyComplete
 C:\Automation\RPAServer (1)\RPAServer\obj\Debug\RPAServer.exe
 C:\Automation\RPAServer (1)\RPAServer\obj\Debug\RPAServer.pdb
+C:\Automation\RPAServer (1)\RPAServer\bin\Debug\IronPdf.Assets.Rendering.Windows.dll
+C:\Automation\RPAServer (1)\RPAServer\bin\Debug\IronPdf.dll
