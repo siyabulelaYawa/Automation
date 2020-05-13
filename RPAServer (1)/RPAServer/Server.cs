@@ -246,7 +246,7 @@ class Server
 
                             MailHandler mail = new MailHandler();
 
-                            int res = mail.SendMailWithAttachements(Regex.Replace(parameters[2], "[^A-Za-z0-9@. ]", ""), Regex.Replace(parameters[3], "[^A-Za-z0-9@. ]", ""),
+                            int res = mail.SendMail(Regex.Replace(parameters[2], "[^A-Za-z0-9@. ]", ""), Regex.Replace(parameters[3], "[^A-Za-z0-9@. ]", ""),
                                 Regex.Replace(parameters[4], "[^A-Za-z0-9 ]", ""), Regex.Replace(parameters[5], "[^A-Za-z0-9,. ]", ""),
                                 Regex.Replace(parameters[6], "[^A-Za-z0-9@. ]", ""), Regex.Replace(parameters[7], "[^A-Za-z0-9 ]", ""));
 
@@ -255,8 +255,16 @@ class Server
                             break;
 
                         case "SENDWITHATTACHMENTS":
-                            break;
 
+                            MailHandler mail2 = new MailHandler();
+
+                            int res2 = mail2.SendMailWithAttachements(Regex.Replace(parameters[2], "[^A-Za-z0-9@. ]", ""), Regex.Replace(parameters[3], "[^A-Za-z0-9@. ]", ""),
+                                Regex.Replace(parameters[4], "[^A-Za-z0-9 ]", ""), Regex.Replace(parameters[5], "[^A-Za-z0-9,. ]", ""),
+                                Regex.Replace(parameters[6], "[^A-Za-z0-9@. ]", ""), Regex.Replace(parameters[7], "[^A-Za-z0-9 ]", ""),parameters[8].Substring(2,parameters[8].Length-4));
+
+                            resultString = "RESULT{" + res2 + ";}";
+
+                            break;
                         default:
                             break;
 

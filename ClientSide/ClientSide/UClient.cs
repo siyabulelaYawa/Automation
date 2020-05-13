@@ -149,6 +149,7 @@ public class UClient
 	private void mailMenu()
 	{
 		Console.WriteLine("1. SEND");
+		Console.WriteLine("2. SEND with attachments");
 		int choice = int.Parse(Console.ReadLine());
 
 		switch (choice)
@@ -157,8 +158,12 @@ public class UClient
 				instruction += "\\\"SEND\\\";";
 				sendMail();
 				break;
+			case 2:
+				instruction += "\\\"SENDWITHATTACHMENTS\\\";";
+				sendAttachMail();
+				break;
 
-		}
+	}
 	}
 	private void sendMail()
 	{
@@ -189,6 +194,57 @@ public class UClient
 
 		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
 		
+		client.Send(sendBytes, sendBytes.Length, server);
+		//client.Send(sendBytes, sendBytes.Length);
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+		webid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
+	}
+	private void sendAttachMail()
+	{
+
+		//	public int SendMail(string fromAddress, string toAddress, string subject, string messageBody, string username, string password)
+		//client.Send(sendBytes, sendBytes.Length);
+
+		Console.WriteLine("Enter email address to send FROM ");
+		string from = Console.ReadLine();
+		Console.WriteLine("Enter username ");
+		string username = Console.ReadLine();
+		Console.WriteLine("Enter password: ");
+		string password = Console.ReadLine();
+		Console.WriteLine("Enter email address to send TO: ");
+		string to = Console.ReadLine();
+		Console.WriteLine("Enter subject: ");
+		string subject = Console.ReadLine();
+		Console.WriteLine("Enter message body ");
+		string body = Console.ReadLine();
+		Console.WriteLine("Enter path ");
+		string path = Console.ReadLine();
+		Console.WriteLine("Enter filename ");
+		string name = Console.ReadLine();
+		instruction += "\\\"" + from + "\\\";";
+		instruction += "\\\"" + to + "\\\";";
+		instruction += "\\\"" + subject + "\\\";";
+		instruction += "\\\"" + body + "\\\";";
+		instruction += "\\\"" + username + "\\\";";
+		instruction += "\\\"" + password + "\\\";";
+		instruction += "\\\"" + path +"/"+name+ "\\\";";
+		Console.WriteLine(instruction);
+		Console.ReadLine();
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
 		client.Send(sendBytes, sendBytes.Length, server);
 		//client.Send(sendBytes, sendBytes.Length);
 
