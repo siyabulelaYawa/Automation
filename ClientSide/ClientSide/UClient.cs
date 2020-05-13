@@ -13,7 +13,9 @@ public class UClient
 	private Byte[] bytes = new Byte[256];
 	private string instruction = @"COMMAND{\";
 	UdpClient client = null;
-	string processid="";
+	string webid="";
+	string excelid = "";
+	string pdfid = "";
 	IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13000);
 	IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
 	public UClient()
@@ -135,7 +137,7 @@ public class UClient
 			Byte[] receiveBytes = client.Receive(ref recv);
 
 			string returnData = Encoding.ASCII.GetString(receiveBytes);
-		processid = returnData;
+		webid = returnData;
 		/*
 			Console.WriteLine("Result: " + returnData.ToString());
 
@@ -186,8 +188,23 @@ public class UClient
 		Console.ReadLine();
 
 		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+		
+		client.Send(sendBytes, sendBytes.Length, server);
+		//client.Send(sendBytes, sendBytes.Length);
 
-		client.Send(sendBytes, sendBytes.Length);
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+		webid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
 	}
 
 	private void pdfMenu()
@@ -201,8 +218,7 @@ public class UClient
 		Console.WriteLine("3. READTEXT");
 		Console.WriteLine("4. CLICK");
 		Console.WriteLine("5. CLOSE");
-		Console.WriteLine("6. CLICK");
-		Console.WriteLine("7. CLICK");
+		
 
 		int choice = int.Parse(Console.ReadLine());
 
@@ -225,6 +241,11 @@ public class UClient
 				instruction += "\\\"CLICK\\\";";
 				clickWeb();
 				break;
+
+			case 5:
+				instruction += "\\\"CLOSE\\\";";
+				closeWeb();
+				break;
 		}
 
 	}
@@ -232,13 +253,13 @@ public class UClient
 	{
 
 
-		Console.WriteLine("Enter wed id");
-		string url = Console.ReadLine();
+		//Console.WriteLine("Enter wed id");
+		//string url = Console.ReadLine();
 		Console.WriteLine("Enter Control ID");
 		string id = Console.ReadLine();
 		Console.WriteLine("Enter text");
 		string text = Console.ReadLine();
-		instruction += "\\\"" + url + "\\\";";
+		instruction += "\\\"" + webid + "\\\";";
 		instruction += "\\\"" + id + "\\\";";
 		instruction += "\\\"" + text + "\\\";";
 
@@ -248,19 +269,35 @@ public class UClient
 
 		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
 
-		client.Send(sendBytes, sendBytes.Length);
+		client.Send(sendBytes, sendBytes.Length, server);
+		//client.Send(sendBytes, sendBytes.Length);
+
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+		webid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
 	}
 	private void readtextWeb()
 	{
 
-		Console.WriteLine("Enter wed id");
-		string url = Console.ReadLine();
+		//Console.WriteLine("Enter wed id");
+		//string url = processid;
 		Console.WriteLine("Enter Control ID");
 		string id = Console.ReadLine();
 
 
 
-		instruction += "\\\"" + url + "\\\";";
+		instruction += "\\\"" + webid + "\\\";";
 		instruction += "\\\"" + id + "\\\";";
 
 
@@ -269,18 +306,34 @@ public class UClient
 
 		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
 
-		client.Send(sendBytes, sendBytes.Length);
+		client.Send(sendBytes, sendBytes.Length, server);
+		//client.Send(sendBytes, sendBytes.Length);
+
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+		webid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
 	}
 	private void clickWeb()
 	{
 
 
-		Console.WriteLine("Enter wed id");
-		string url = Console.ReadLine();
+		//Console.WriteLine("Enter wed id");
+		//string url = Console.ReadLine();
 		Console.WriteLine("Enter Control ID");
 		string id = Console.ReadLine();
 
-		instruction += "\\\"" + url + "\\\";";
+		instruction += "\\\"" + webid + "\\\";";
 		instruction += "\\\"" + id + "\\\";";
 
 
@@ -290,7 +343,60 @@ public class UClient
 
 		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
 
-		client.Send(sendBytes, sendBytes.Length);
+		client.Send(sendBytes, sendBytes.Length, server);
+		//client.Send(sendBytes, sendBytes.Length);
+
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+		webid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
+	}
+	private void closeWeb()
+	{
+
+
+		//Console.WriteLine("Enter wed id");
+		//string url = Console.ReadLine();
+		//Console.WriteLine("Enter Control ID");
+		//string id = Console.ReadLine();
+
+		instruction += "\\\"" + webid + "\\\";";
+		
+
+
+
+		Console.WriteLine(instruction);
+		Console.ReadLine();
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length, server);
+		//client.Send(sendBytes, sendBytes.Length);
+
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+		webid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
 	}
 	private void excelMenu()
 	{
@@ -323,6 +429,14 @@ public class UClient
 				instruction += "\\\"SAVE\\\";";
 				saveSpreadsheet();
 				break;
+			case 4:
+				instruction += "\\\"WRITE\\\";";
+				writeSpreadsheet();
+				break;
+			case 5:
+				instruction += "\\\"READ\\\";";
+				readSpreadsheet();
+				break;
 			default:
 				Console.WriteLine("Unknown action quitting");
 				return;
@@ -333,12 +447,136 @@ public class UClient
 
 	private void saveSpreadsheet()
 	{
-		createSpreadsheet();
+		
+		
+		instruction += "\\\"" + excelid + "\\\";";
+
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length, server);
+		//client.Send(sendBytes, sendBytes.Length);
+
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+		excelid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
+
+		//string command = 
 	}
 
 	private void openSpreadsheet()
 	{
-		createSpreadsheet();
+		Console.WriteLine("Enter file path");
+		string path = Console.ReadLine();
+		Console.WriteLine("Enter file name");
+		string filename=Console.ReadLine();
+
+		instruction += "\\\"" + path +"/"+filename+ "\\\";";
+
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length, server);
+		//client.Send(sendBytes, sendBytes.Length);
+
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+		excelid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
+	}
+	private void writeSpreadsheet()
+	{
+		Console.WriteLine("Enter file path");
+		string path = Console.ReadLine();
+		Console.WriteLine("Enter file name");
+		string filename = Console.ReadLine();
+		Console.WriteLine("Enter cell");
+		string cell = Console.ReadLine();
+		Console.WriteLine("Enter value");
+		string value = Console.ReadLine();
+
+
+		instruction += "\\\"" + path + "/" + filename + "\\\";";
+		instruction += "\\\"" + cell + "\\\";";
+		instruction += "\\\"" + value +  "\\\";";
+
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length, server);
+		//client.Send(sendBytes, sendBytes.Length);
+
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+		excelid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
+	}
+	private void readSpreadsheet()
+	{
+		Console.WriteLine("Enter file path");
+		string path = Console.ReadLine();
+		Console.WriteLine("Enter file name");
+		string filename = Console.ReadLine();
+		Console.WriteLine("Enter cell");
+		string cell = Console.ReadLine();
+		
+
+
+		instruction += "\\\"" + path + "/" + filename + "\\\";";
+		instruction += "\\\"" + cell + "\\\";";
+	
+
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length, server);
+		//client.Send(sendBytes, sendBytes.Length);
+
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+		excelid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
 	}
 
 	private void createSpreadsheet()
@@ -347,14 +585,30 @@ public class UClient
 		string path = Console.ReadLine();
 		Console.WriteLine("Enter the name of the file you want to create: ");
 		string filename = Console.ReadLine();
-		instruction += "\\" + path + filename;
+		instruction += "\\" + path+"/" + filename;
 		instruction += "\";}";
 		Console.WriteLine(instruction);
 		Console.ReadLine();
 
 		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
 
-		client.Send(sendBytes, sendBytes.Length);
+		client.Send(sendBytes, sendBytes.Length, server);
+		//client.Send(sendBytes, sendBytes.Length);
+
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+		excelid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
 
 		//string command = 
 	}
@@ -364,5 +618,28 @@ public class UClient
 
 		//"COMMAND{\"EXCEL\";\"CREATE\";\"c:/log/testfile.xlsx\";}"
 		return "COMMAND";
+	}
+	private void finish()
+	{
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length, server);
+		//client.Send(sendBytes, sendBytes.Length);
+
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+		excelid = returnData;
+		/*
+			Console.WriteLine("Result: " + returnData.ToString());
+
+			Console.WriteLine("Result sent from : " + recv.Address.ToString()
+				+ " on their port number " + recv.Port.ToString());
+*/
+
 	}
 }

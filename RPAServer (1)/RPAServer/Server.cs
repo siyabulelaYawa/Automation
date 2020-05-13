@@ -82,10 +82,43 @@ class Server
                             break;
 
                         case "OPEN":
+                            ExcelHandler exh2 = new ExcelHandler();
+                            string id = parameters[2].Substring(2, parameters[2].Length - 4);
+                           int res2=  exh2.OpenExcelDocument(id);
+                           
+
+                            resultString = "RESULT{" + res2 + ";}";
+
+                            break;
+                        case "WRITE":
+                            ExcelHandler write = new ExcelHandler();
+                            string writePath = parameters[2].Substring(2, parameters[2].Length - 4);
+                            string writeCell = parameters[3].Substring(2, parameters[3].Length - 4);
+                            string writeValue = parameters[4].Substring(2, parameters[4].Length - 4);
+                            int writeRes = write.writeExcelDocument(writePath,writeCell,writeValue);
+
+
+                            resultString = "RESULT{" + writeRes + ";}";
+
+                            break;
+                        case "READ":
+                            ExcelHandler read = new ExcelHandler();
+                            string readPath = parameters[2].Substring(2, parameters[2].Length - 4);
+                            string readCell = parameters[3].Substring(2, parameters[3].Length - 4);
+                            string readRes = read.ReadDataExcelDocument(readPath,readCell);
+
+
+                            resultString = "RESULT{" + readRes + ";}";
 
                             break;
 
                         case "SAVE":
+                            ExcelHandler exh3 = new ExcelHandler();
+                            string Excelpath = parameters[2].Substring(2, parameters[2].Length - 4);
+                            int res3 = exh3.OpenExcelDocument(Excelpath);
+
+
+                            resultString = "RESULT{" + res3 + ";}";
                             break;
 
                         default:
@@ -213,7 +246,7 @@ class Server
 
                             MailHandler mail = new MailHandler();
 
-                            int res = mail.SendMail(Regex.Replace(parameters[2], "[^A-Za-z0-9@. ]", ""), Regex.Replace(parameters[3], "[^A-Za-z0-9@. ]", ""),
+                            int res = mail.SendMailWithAttachements(Regex.Replace(parameters[2], "[^A-Za-z0-9@. ]", ""), Regex.Replace(parameters[3], "[^A-Za-z0-9@. ]", ""),
                                 Regex.Replace(parameters[4], "[^A-Za-z0-9 ]", ""), Regex.Replace(parameters[5], "[^A-Za-z0-9,. ]", ""),
                                 Regex.Replace(parameters[6], "[^A-Za-z0-9@. ]", ""), Regex.Replace(parameters[7], "[^A-Za-z0-9 ]", ""));
 
