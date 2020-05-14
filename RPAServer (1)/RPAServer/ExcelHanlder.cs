@@ -24,6 +24,7 @@ namespace CoreServer
             Guid id = Guid.NewGuid();
 
             global.fileIndex.Add(id.ToString(), excelFile);
+            excelFile.Save();
 
             return id.ToString();
         }
