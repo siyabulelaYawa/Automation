@@ -28,135 +28,129 @@ namespace CoreServer
             return id.ToString();
         }
 
-        public int SaveExcelDocument(string filename)
+        public int SaveExcelDocument(string id)
         {
+
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            FileInfo fileInfo = new FileInfo(@filename);
+            GlobalObject global = GlobalObject.Instance;
 
-            using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
+            ExcelPackage excelFile;
+
+
+            Object tempObject;
+
+            global.fileIndex.TryGetValue(id, out tempObject);
+
+            if (tempObject is ExcelPackage)
             {
-                //ExcelWorksheet firstWorksheet = excelPackage.Workbook.Worksheets[1];
-                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets[0];
-
-                //get worksheet by name
-                //ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Sheet1"];
-
-
-
-                //string valueA1 = worksheet.Cells["A1"].Value.ToString();
-                //Console.WriteLine(valueA1);
-
-                //excelPackage.Save();
-                excelPackage.Save();
+                excelFile = (ExcelPackage)tempObject;
+                excelFile.Save();
+                return Result.OK;
             }
-               
-                return 0;
-                //    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            else
+            {
+                return Result.NOK;
+            }
 
-                //    GlobalObject global = GlobalObject.Instance;
-
-                //    ExcelPackage excelFile;
+          
 
 
-                //    Object tempObject;
-
-                //    global.fileIndex.TryGetValue(id, out tempObject);
-
-                //    if (tempObject is ExcelPackage)
-                //    {
-                //        excelFile = (ExcelPackage)tempObject;
-                //    }
-                //    else
-                //    {
-                //        return Result.NOK;
-                //    }
-
-                //    excelFile.Save();
-
-    
         }
 
 
-        public int OpenExcelDocument(string filename)
+        public string OpenExcelDocument(string filename)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             FileInfo fileInfo = new FileInfo(@filename);
 
-            using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
-            {
-                //ExcelWorksheet firstWorksheet = excelPackage.Workbook.Worksheets[1];
-                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets[0];
+            ExcelPackage excelFile = new ExcelPackage(fileInfo);
+            
+                
 
-                //get worksheet by name
-                //ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Sheet1"];
+                GlobalObject global = GlobalObject.Instance;
 
+                Guid id = Guid.NewGuid();
 
+                global.fileIndex.Add(id.ToString(), excelFile);
 
-                //string valueA1 = worksheet.Cells["A1"].Value.ToString();
-                //Console.WriteLine(valueA1);
-
-                //excelPackage.Save();
-                excelPackage.Save();
-                Process process = Process.Start(filename);
-                return 0;
-            }
+            return id.ToString();
 
         }
-        public int writeExcelDocument(string filename, string cell, string value)
+        public int writeExcelDocument(string id, string cell, string value)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            FileInfo fileInfo = new FileInfo(@filename);
+            GlobalObject global = GlobalObject.Instance;
 
-            using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
+            ExcelPackage excelFile;
+
+
+            Object tempObject;
+
+            global.fileIndex.TryGetValue(id, out tempObject);
+
+            if (tempObject is ExcelPackage)
             {
-                //ExcelWorksheet firstWorksheet = excelPackage.Workbook.Worksheets[1];
-                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets[0];
+                excelFile = (ExcelPackage)tempObject;
+                ExcelWorksheet worksheet = excelFile.Workbook.Worksheets["Sheet1"];
 
                 //get worksheet by name
                 //ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Sheet1"];
 
 
 
-                //string valueA1 = worksheet.Cells["A1"].Value.ToString();
-                //Console.WriteLine(valueA1);
-
-                //excelPackage.Save();
                 worksheet.Cells[cell].Value = value;
-                excelPackage.Save();
-                Process process = Process.Start(filename);
-                return 0;
+                return Result.OK;
+
+                //excelPackage.Save();
+
+            }
+            else
+            {
+                return Result.NOK;
             }
 
+
         }
-        public string ReadDataExcelDocument(string filename, string cell)
+        public string ReadDataExcelDocument(string id, string cell)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            FileInfo fileInfo = new FileInfo(@filename);
+            GlobalObject global = GlobalObject.Instance;
 
-            using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
+            ExcelPackage excelFile;
+
+
+            Object tempObject;
+
+            global.fileIndex.TryGetValue(id, out tempObject);
+
+            if (tempObject is ExcelPackage)
             {
-                //ExcelWorksheet firstWorksheet = excelPackage.Workbook.Worksheets[1];
-                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets[0];
-
+                excelFile = (ExcelPackage)tempObject;
+                try
+                {
+                    ExcelWorksheet worksheet = excelFile.Workbook.Worksheets["Sheet1"];
+                    string valueA1 = worksheet.Cells[cell].Value.ToString();
+                return valueA1;
+                }catch(Exception e)
+                {
+                    return "";
+                }
                 //get worksheet by name
                 //ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Sheet1"];
 
-
-
-                //string valueA1 = worksheet.Cells["A1"].Value.ToString();
-                //Console.WriteLine(valueA1);
-
-                //excelPackage.Save();
-                string value =worksheet.Cells[cell].Text;
-                return value;
             }
+            else
+            {
+                return "";
+            }
+
 
         }
 
-
+        
     }
 }

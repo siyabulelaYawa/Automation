@@ -465,7 +465,9 @@ public class UClient
 		Console.WriteLine("1. Create Excel Spreadsheet");
 		Console.WriteLine("2. Open Excel Spreadsheet");
 		Console.WriteLine("3. Save Excel Spreadsheet");
-		Console.WriteLine("4. EXIT");
+		Console.WriteLine("4. write Excel Spreadsheet");
+		Console.WriteLine("5. read Excel Spreadsheet");
+		Console.WriteLine("6. EXIT");
 
 
 		Console.WriteLine("Enter option: ");
@@ -563,17 +565,15 @@ public class UClient
 	}
 	private void writeSpreadsheet()
 	{
-		Console.WriteLine("Enter file path");
-		string path = Console.ReadLine();
-		Console.WriteLine("Enter file name");
-		string filename = Console.ReadLine();
+		
+		
 		Console.WriteLine("Enter cell");
 		string cell = Console.ReadLine();
 		Console.WriteLine("Enter value");
 		string value = Console.ReadLine();
 
 
-		instruction += "\\\"" + path + "/" + filename + "\\\";";
+		instruction += "\\\"" + excelid + "\\\";";
 		instruction += "\\\"" + cell + "\\\";";
 		instruction += "\\\"" + value +  "\\\";";
 
@@ -590,26 +590,23 @@ public class UClient
 		Byte[] receiveBytes = client.Receive(ref recv);
 
 		string returnData = Encoding.ASCII.GetString(receiveBytes);
-		excelid = returnData;
-		/*
+		//excelid = returnData;
+		
 			Console.WriteLine("Result: " + returnData.ToString());
 
 			Console.WriteLine("Result sent from : " + recv.Address.ToString()
 				+ " on their port number " + recv.Port.ToString());
-*/
+
 	}
 	private void readSpreadsheet()
 	{
-		Console.WriteLine("Enter file path");
-		string path = Console.ReadLine();
-		Console.WriteLine("Enter file name");
-		string filename = Console.ReadLine();
+		
 		Console.WriteLine("Enter cell");
 		string cell = Console.ReadLine();
 		
 
 
-		instruction += "\\\"" + path + "/" + filename + "\\\";";
+		instruction += "\\\"" +excelid + "\\\";";
 		instruction += "\\\"" + cell + "\\\";";
 	
 
@@ -626,7 +623,7 @@ public class UClient
 		Byte[] receiveBytes = client.Receive(ref recv);
 
 		string returnData = Encoding.ASCII.GetString(receiveBytes);
-		excelid = returnData;
+		//excelid = returnData;
 		/*
 			Console.WriteLine("Result: " + returnData.ToString());
 

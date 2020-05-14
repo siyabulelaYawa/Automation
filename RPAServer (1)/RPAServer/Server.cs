@@ -75,20 +75,20 @@ class Server
                             ExcelHandler exh = new ExcelHandler();
                             string path = parameters[2].Substring(1, parameters[2].Length - 2);
                             string fileId = exh.CreateExcelDocument(path);
-                            int res = exh.SaveExcelDocument(fileId);
+                            
 
-                            resultString = "RESULT{" + res + ";\"" + fileId + "\";}";
-
+                            // resultString = "RESULT{" + res + ";\"" + fileId + "\";}";
+                            resultString =  fileId;
                             break;
 
                         case "OPEN":
                             ExcelHandler exh2 = new ExcelHandler();
                             string id = parameters[2].Substring(2, parameters[2].Length - 4);
-                           int res2=  exh2.OpenExcelDocument(id);
-                           
+                           string res2=  exh2.OpenExcelDocument(id);
 
-                            resultString = "RESULT{" + res2 + ";}";
 
+                            // resultString = "RESULT{" + res2 + ";}";
+                            resultString =  res2;
                             break;
                         case "WRITE":
                             ExcelHandler write = new ExcelHandler();
@@ -115,7 +115,7 @@ class Server
                         case "SAVE":
                             ExcelHandler exh3 = new ExcelHandler();
                             string Excelpath = parameters[2].Substring(2, parameters[2].Length - 4);
-                            int res3 = exh3.OpenExcelDocument(Excelpath);
+                            int res3 = exh3.SaveExcelDocument(Excelpath);
 
 
                             resultString = "RESULT{" + res3 + ";}";
