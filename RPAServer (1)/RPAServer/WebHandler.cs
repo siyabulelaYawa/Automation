@@ -26,7 +26,7 @@ namespace CoreServer
             return id.ToString();
         }
 
-        public int EnterText(string id, string elementId, string text)
+        public int EnterText(string id,string element, string elementId, string text)
         {
 
 
@@ -60,14 +60,14 @@ namespace CoreServer
             {
                 return Result.NOK;
             }
-
-            driver.FindElement(By.Name(elementId)).SendKeys(text);
+            driver.FindElement(By.XPath("//input[@"+element+"='" + elementId + "']")).SendKeys(text);
+            //driver.FindElement(By.Name(elementId)).SendKeys(text);
             
 
             return Result.OK;
         }
 
-        public string ReadText(string id, string elementId)
+        public string ReadText(string id,string element, string elementId)
         {
 
             //IWebDriver driver;
@@ -92,8 +92,9 @@ namespace CoreServer
             {
                 return "";
             }
-
-            return driver.FindElement(By.Name(elementId)).Text;
+           string answer= driver.FindElement(By.XPath(element)).Text;
+           
+            return answer;
         }
 
         public int ClickButton(string id, string elementId)

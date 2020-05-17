@@ -62,6 +62,7 @@ class Server
             string tmpString = command.Substring(command.IndexOf("{"), command.Length - command.IndexOf("{"));
             string[] parameters = tmpString.Split(';');
 
+            
             switch (Regex.Replace(parameters[0], "[^A-Za-z0-9 ]", ""))
             {
 
@@ -73,8 +74,9 @@ class Server
                         case "CREATE":
 
                             ExcelHandler exh = new ExcelHandler();
-                            string path = parameters[2].Substring(1, parameters[2].Length - 2);
-                            string fileId = exh.CreateExcelDocument(path);
+                            string path = parameters[2].Substring(2, parameters[2].Length - 4);
+                            string sheetName = parameters[3].Substring(2, parameters[3].Length - 4);
+                            string fileId = exh.CreateExcelDocument(path,sheetName);
                             
 
                             // resultString = "RESULT{" + res + ";\"" + fileId + "\";}";
@@ -95,7 +97,8 @@ class Server
                             string writePath = parameters[2].Substring(2, parameters[2].Length - 4);
                             string writeCell = parameters[3].Substring(2, parameters[3].Length - 4);
                             string writeValue = parameters[4].Substring(2, parameters[4].Length - 4);
-                            int writeRes = write.writeExcelDocument(writePath,writeCell,writeValue);
+                            string writeSheet = parameters[5].Substring(2, parameters[5].Length - 4);
+                            int writeRes = write.writeExcelDocument(writePath,writeCell,writeValue, writeSheet);
 
 
                             resultString = "RESULT{" + writeRes + ";}";
@@ -105,7 +108,8 @@ class Server
                             ExcelHandler read = new ExcelHandler();
                             string readPath = parameters[2].Substring(2, parameters[2].Length - 4);
                             string readCell = parameters[3].Substring(2, parameters[3].Length - 4);
-                            string readRes = read.ReadDataExcelDocument(readPath,readCell);
+                            string readSheet = parameters[4].Substring(2, parameters[4].Length - 4);
+                            string readRes = read.ReadDataExcelDocument(readPath,readCell, readSheet);
 
 
                             resultString = "RESULT{" + readRes + ";}";
@@ -146,7 +150,7 @@ class Server
 
                             web = new WebHandler();
                             // int res = web.EnterText(parameters[2].Substring(1, 36), Regex.Replace(parameters[3], "[^A-Za-z0-9 ]", ""), Regex.Replace(parameters[4], "[^A-Za-z0-9 ]", ""));
-                            int res = web.EnterText(parameters[2].Substring(2, parameters[2].Length - 4), parameters[3].Substring(2, parameters[3].Length - 4), parameters[4].Substring(2, parameters[4].Length - 4));
+                            int res = web.EnterText(parameters[2].Substring(2, parameters[2].Length - 4), parameters[3].Substring(2, parameters[3].Length - 4), parameters[4].Substring(2, parameters[4].Length - 4), parameters[5].Substring(2, parameters[5].Length - 4));
 
                             resultString = "RESULT{" + res + ";}";
 
@@ -155,7 +159,7 @@ class Server
                         case "READTEXT":
 
                             web = new WebHandler();
-                            string text = web.ReadText(parameters[2].Substring(2, parameters[2].Length - 4), parameters[3].Substring(2, parameters[3].Length - 4));
+                            string text = web.ReadText(parameters[2].Substring(2, parameters[2].Length - 4), parameters[3].Substring(2, parameters[3].Length - 4), parameters[4].Substring(2, parameters[4].Length - 4));
 
                             if (text.Equals(""))
                             {

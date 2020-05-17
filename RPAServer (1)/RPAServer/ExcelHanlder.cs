@@ -9,7 +9,7 @@ namespace CoreServer
 {
     public class ExcelHandler
     {
-        public string CreateExcelDocument(string fileName)
+        public string CreateExcelDocument(string fileName, string sheetName)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
@@ -17,7 +17,7 @@ namespace CoreServer
 
             var excelFile = new ExcelPackage(fileInfo);
 
-            excelFile.Workbook.Worksheets.Add("Sheet1");
+            excelFile.Workbook.Worksheets.Add(sheetName);
 
             GlobalObject global = GlobalObject.Instance;
 
@@ -79,7 +79,7 @@ namespace CoreServer
             return id.ToString();
 
         }
-        public int writeExcelDocument(string id, string cell, string value)
+        public int writeExcelDocument(string id, string cell, string value,string sheet)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
@@ -95,7 +95,7 @@ namespace CoreServer
             if (tempObject is ExcelPackage)
             {
                 excelFile = (ExcelPackage)tempObject;
-                ExcelWorksheet worksheet = excelFile.Workbook.Worksheets["Sheet1"];
+                ExcelWorksheet worksheet = excelFile.Workbook.Worksheets[sheet];
 
                 //get worksheet by name
                 //ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Sheet1"];
@@ -115,7 +115,7 @@ namespace CoreServer
 
 
         }
-        public string ReadDataExcelDocument(string id, string cell)
+        public string ReadDataExcelDocument(string id, string cell,string sheet)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
@@ -133,7 +133,7 @@ namespace CoreServer
                 excelFile = (ExcelPackage)tempObject;
                 try
                 {
-                    ExcelWorksheet worksheet = excelFile.Workbook.Worksheets["Sheet1"];
+                    ExcelWorksheet worksheet = excelFile.Workbook.Worksheets[sheet];
                     string valueA1 = worksheet.Cells[cell].Value.ToString();
                 return valueA1;
                 }catch(Exception e)

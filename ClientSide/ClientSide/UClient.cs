@@ -309,19 +309,20 @@ public class UClient
 	{
 
 
-		//Console.WriteLine("Enter wed id");
-		//string url = Console.ReadLine();
+		Console.WriteLine("input control");
+		string control = Console.ReadLine();
 		Console.WriteLine("Enter Control ID");
 		string id = Console.ReadLine();
 		Console.WriteLine("Enter text");
 		string text = Console.ReadLine();
 		instruction += "\\\"" + webid + "\\\";";
+		instruction += "\\\"" + control + "\\\";";
 		instruction += "\\\"" + id + "\\\";";
 		instruction += "\\\"" + text + "\\\";";
 
 
-		Console.WriteLine(instruction);
-		Console.ReadLine();
+		//Console.WriteLine(instruction);
+		//Console.ReadLine();
 
 		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
 
@@ -348,17 +349,19 @@ public class UClient
 
 		//Console.WriteLine("Enter wed id");
 		//string url = processid;
-		Console.WriteLine("Enter Control ID");
-		string id = Console.ReadLine();
+		Console.WriteLine("input xpath");
+		string path = Console.ReadLine();
+		
 
 
 
 		instruction += "\\\"" + webid + "\\\";";
-		instruction += "\\\"" + id + "\\\";";
+		instruction += "\\\"" + path + "\\\";";
+		
 
 
-		Console.WriteLine(instruction);
-		Console.ReadLine();
+	//	Console.WriteLine(instruction);
+		//Console.ReadLine();
 
 		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
 
@@ -464,10 +467,8 @@ public class UClient
 
 		Console.WriteLine("1. Create Excel Spreadsheet");
 		Console.WriteLine("2. Open Excel Spreadsheet");
-		Console.WriteLine("3. Save Excel Spreadsheet");
-		Console.WriteLine("4. write Excel Spreadsheet");
-		Console.WriteLine("5. read Excel Spreadsheet");
-		Console.WriteLine("6. EXIT");
+		
+		Console.WriteLine("3. EXIT");
 
 
 		Console.WriteLine("Enter option: ");
@@ -484,22 +485,60 @@ public class UClient
 				openSpreadsheet();
 				break;
 			case 3:
-				instruction += "\\\"SAVE\\\";";
-				saveSpreadsheet();
-				break;
-			case 4:
-				instruction += "\\\"WRITE\\\";";
-				writeSpreadsheet();
-				break;
-			case 5:
-				instruction += "\\\"READ\\\";";
-				readSpreadsheet();
-				break;
+				return;
+		
 			default:
 				Console.WriteLine("Unknown action quitting");
 				return;
 				//break;
 		}
+
+	}
+	private void excelSubMenu()
+	{
+		
+		while (true)
+		{
+			instruction = @"COMMAND{\";
+			instruction += "\\\"EXCEL\\\";";
+			Console.WriteLine("Excel Sub Menu");
+			Console.WriteLine("");
+
+			int choice;
+		
+
+			Console.WriteLine("1. Save Excel Spreadsheet");
+			Console.WriteLine("2. write Excel Spreadsheet");
+			Console.WriteLine("3. read Excel Spreadsheet");
+			Console.WriteLine("4. EXIT");
+
+
+			Console.WriteLine("Enter option: ");
+			choice = int.Parse(Console.ReadLine());
+			switch (choice)
+					{
+					
+						case 1:
+							instruction += "\\\"SAVE\\\";";
+							saveSpreadsheet();
+							break;
+						case 2:
+							instruction += "\\\"WRITE\\\";";
+							writeSpreadsheet();
+							break;
+						case 3:
+							instruction += "\\\"READ\\\";";
+							readSpreadsheet();
+							break;
+						case 4:
+							return;
+				default:
+							Console.WriteLine("Unknown action restarting... \n");
+							return;
+							//break;
+					}
+		}
+		
 
 	}
 
@@ -556,12 +595,13 @@ public class UClient
 
 		string returnData = Encoding.ASCII.GetString(receiveBytes);
 		excelid = returnData;
-		/*
+		
+		
 			Console.WriteLine("Result: " + returnData.ToString());
 
 			Console.WriteLine("Result sent from : " + recv.Address.ToString()
 				+ " on their port number " + recv.Port.ToString());
-*/
+excelSubMenu();
 	}
 	private void writeSpreadsheet()
 	{
@@ -571,11 +611,13 @@ public class UClient
 		string cell = Console.ReadLine();
 		Console.WriteLine("Enter value");
 		string value = Console.ReadLine();
-
+		Console.WriteLine("Enter sheet");
+		string sheet = Console.ReadLine();
 
 		instruction += "\\\"" + excelid + "\\\";";
 		instruction += "\\\"" + cell + "\\\";";
 		instruction += "\\\"" + value +  "\\\";";
+		instruction += "\\\"" + sheet + "\\\";";
 
 
 		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
@@ -603,12 +645,14 @@ public class UClient
 		
 		Console.WriteLine("Enter cell");
 		string cell = Console.ReadLine();
-		
+		Console.WriteLine("Enter sheet name");
+		string sheet = Console.ReadLine();
 
 
 		instruction += "\\\"" +excelid + "\\\";";
 		instruction += "\\\"" + cell + "\\\";";
-	
+		instruction += "\\\"" + sheet + "\\\";";
+
 
 
 		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
@@ -638,8 +682,10 @@ public class UClient
 		string path = Console.ReadLine();
 		Console.WriteLine("Enter the name of the file you want to create: ");
 		string filename = Console.ReadLine();
-		instruction += "\\" + path+"/" + filename;
-		instruction += "\";}";
+		Console.WriteLine("Enter sheet name");
+		string sheetname = Console.ReadLine();
+		instruction += "\\\"" + path + "/" + filename + "\\\";";
+		instruction += "\\\"" + sheetname + "\\\";";
 		Console.WriteLine(instruction);
 		Console.ReadLine();
 
@@ -656,14 +702,12 @@ public class UClient
 
 		string returnData = Encoding.ASCII.GetString(receiveBytes);
 		excelid = returnData;
-		/*
+		
 			Console.WriteLine("Result: " + returnData.ToString());
 
 			Console.WriteLine("Result sent from : " + recv.Address.ToString()
 				+ " on their port number " + recv.Port.ToString());
-*/
-
-		//string command = 
+		excelSubMenu();
 	}
 
 	private String excelCommandParser(string path, string filename)
