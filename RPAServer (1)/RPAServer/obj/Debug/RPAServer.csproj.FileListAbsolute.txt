@@ -40,3 +40,12 @@ C:\Automation\RPAServer (1)\RPAServer\obj\Debug\RPAServer.exe
 C:\Automation\RPAServer (1)\RPAServer\obj\Debug\RPAServer.pdb
 C:\Automation\RPAServer (1)\RPAServer\bin\Debug\IronPdf.Assets.Rendering.Windows.dll
 C:\Automation\RPAServer (1)\RPAServer\bin\Debug\IronPdf.dll
+C:\Automation\RPAServer (1)\RPAServer\bin\Debug\x86\liblept1753.dll
+C:\Automation\RPAServer (1)\RPAServer\bin\Debug\x86\libtesseract3052.dll
+C:\Automation\RPAServer (1)\RPAServer\bin\Debug\x64\liblept1753.dll
+C:\Automation\RPAServer (1)\RPAServer\bin\Debug\x64\libtesseract3052.dll
+C:\Automation\RPAServer (1)\RPAServer\bin\Debug\IronOcr.dll
+C:\Automation\RPAServer (1)\RPAServer\bin\Debug\IronOcr.German.dll
+C:\Automation\RPAServer (1)\RPAServer\bin\Debug\Tesseract.dll
+C:\Automation\RPAServer (1)\RPAServer\bin\Debug\itextsharp.dll
+C:\Automation\RPAServer (1)\RPAServer\bin\Debug\SautinSoft.PdfFocus.dll

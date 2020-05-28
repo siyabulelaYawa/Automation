@@ -16,8 +16,10 @@ public class UClient
 	string webid="";
 	string excelid = "";
 	string pdfid = "";
+	string pdfMergedid = "";
 	IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13000);
 	IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
 	public UClient()
 	{
 		Connect();
@@ -72,6 +74,7 @@ public class UClient
 
 	public void mainMenu()
 	{
+
 		while (true)
 		{
 		instruction = @"COMMAND{\";
@@ -85,7 +88,8 @@ public class UClient
 			Console.WriteLine("2. WEB");
 			Console.WriteLine("3. PDF");
 			Console.WriteLine("4. MAIL");
-			Console.WriteLine("5. EXIT");
+			Console.WriteLine("5. OCR");
+			Console.WriteLine("6. EXIT");
 
 			Console.WriteLine("Enter option: ");
 			choice = int.Parse(Console.ReadLine());
@@ -109,12 +113,91 @@ public class UClient
 					mailMenu();
 					break;
 				case 5:
+					instruction += "\\\"OCR\\\";";
+					ocrMenu();
+					break;
+				case 6:
 					return;
 					//break;
 			}
 		}
 
 	}
+	private void ocrMenu()
+	{
+		Console.WriteLine("OCR Menu");
+		Console.WriteLine("");
+
+		int choice;
+
+		Console.WriteLine("1. Read text from Image");
+		Console.WriteLine("2. Read German text from an image");
+
+
+		Console.WriteLine("3. EXIT");
+
+
+		Console.WriteLine("Enter option: ");
+		choice = int.Parse(Console.ReadLine());
+
+		switch (choice)
+		{
+			case 1:
+				instruction += "\\\"READTEXTFROMIMAGE\\\";";
+				getTextFromImage();
+				break;
+
+			case 2:
+				instruction += "\\\"READGERMANTEXTFROMIMAGE\\\";";
+				readGermanTextFromImage();
+				break;
+
+			default:
+				Console.WriteLine("Unknown action quitting");
+				return;
+				//break;
+		}
+	}
+	private void readGermanTextFromImage()
+	{
+		Console.WriteLine("Enter the path of the image: ");
+		string path = Console.ReadLine();
+		instruction += "\\" + path;
+		instruction += "\";}";
+		Console.WriteLine(instruction);
+		//Console.ReadLine();
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length, server);
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+	}
+
+	private void getTextFromImage()
+	{
+		Console.WriteLine("Enter the path of the image: ");
+		string path = Console.ReadLine();
+		instruction += "\\" + path;
+		instruction += "\";}";
+		Console.WriteLine(instruction);
+		//Console.ReadLine();
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length, server);
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+	}
+
 	private void openWeb()
 	{
 		Console.WriteLine("Enter url");
@@ -265,7 +348,162 @@ public class UClient
 
 	private void pdfMenu()
 	{
+			Console.WriteLine("1. OPEN");
+			Console.WriteLine("2. CLOSE");
+			Console.WriteLine("3. READTEXTFROMPAGE");
+			Console.WriteLine("4. MERGEPDFs");
+
+
+			int choice = int.Parse(Console.ReadLine());
+
+			switch (choice)
+			{
+				case 1:
+					instruction += "\\\"OPEN\\\";";
+					openPDF();
+					break;
+				case 2:
+					instruction += "\\\"CLOSE\\\";";
+					closePDF();
+					break;
+				case 3:
+					instruction += "\\\"READTEXTFROMPAGE\\\";";
+					readtextFromPDF();
+					break;
+
+				case 4:
+					instruction += "\\\"MERGEDOCUMENTS\\\";";
+					mergePDFs();
+					break;
+			}
+
+		
+
 	}
+	private void mergePDFs()
+	{
+		/*Console.WriteLine("Enter the path of the first file: ");
+		string path1 = Console.ReadLine();
+		Console.WriteLine("Enter the path of the second file: ");
+		string path2 = Console.ReadLine();*/
+
+		/*instruction += "\\\"" + path1 + "\\\";";
+		instruction += "\\\"" + path2 + "\\\";}";*/
+
+
+		/*instruction += "\\" + path1 + "\\;";
+		instruction += "\\" + path2;*/
+		instruction += pdfMergedid;
+
+		instruction += ";}";
+
+		Console.WriteLine(instruction);
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length, server);
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+
+	}
+
+	private void readtextFromPDF()
+	{
+		//Console.WriteLine("Enter the path of the file: ");
+		//string path = Console.ReadLine();
+		Console.WriteLine("Enter the page number: ");
+		int page = int.Parse(Console.ReadLine());
+
+		instruction += "\\" + pdfid + "\\;";
+		instruction += "\\\"" + page;
+		instruction += "\";}";
+
+		Console.WriteLine(instruction);
+		//Console.ReadLine();
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length, server);
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+	}
+
+
+
+	private void openPDF()
+	{
+		Console.WriteLine("Enter the path of the file: ");
+		string path = Console.ReadLine();
+		instruction += "\\" + path;
+		instruction += "\";}";
+		Console.WriteLine(instruction);
+		//Console.ReadLine();
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length, server);
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+		//C:\Users\S4\Downloads\B200404.pdf
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+
+		pdfid = returnData;
+
+		if (pdfMergedid == "")
+		{
+			pdfMergedid = "\\" + returnData;
+		}
+		else
+		{
+			pdfMergedid += "\";";
+			pdfMergedid += "\\" + returnData;
+
+
+
+			/*instruction += "\\\"" + excelid + "\\\";";
+			instruction += "\\\"" + cell + "\\\";";
+			instruction += "\\\"" + value + "\\\";";*/
+		}
+
+		//string command =
+	}
+
+	private void closePDF()
+	{
+
+		instruction += "\\" + pdfid;
+		instruction += "\";}";
+		Console.WriteLine(instruction);
+		//Console.ReadLine();
+
+		Byte[] sendBytes = Encoding.ASCII.GetBytes(instruction);
+
+		client.Send(sendBytes, sendBytes.Length, server);
+
+		IPEndPoint recv = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 13001);
+
+		//C:\Users\S4\Downloads\B200404.pdf
+
+		Byte[] receiveBytes = client.Receive(ref recv);
+
+		string returnData = Encoding.ASCII.GetString(receiveBytes);
+
+		pdfid = returnData;
+
+	}
+
 
 	private void webMenu()
 	{

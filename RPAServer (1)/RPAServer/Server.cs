@@ -196,7 +196,6 @@ class Server
                     }
 
                     break;
-
                 case "PDF":
 
                     switch (Regex.Replace(parameters[1], "[^A-Za-z0-9 ]", ""))
@@ -206,40 +205,59 @@ class Server
                             PDFHandler pdf = new PDFHandler();
                             string path = parameters[2].Substring(1, parameters[2].Length - 2);
                             string pdfId = pdf.OpenPDF(path);
+                            //resultString = "RESULT{0;\"" + pdfId + "\";}";
+                            resultString = pdfId;
+
+                            break;
+/*
+
+                        case "MERGEDOCUMENTS":
+                            pdf = new PDFHandler();
+                            string id1 = parameters[2].Substring(1, parameters[2].Length - 2);
+                            string id2 = parameters[3].Substring(1, parameters[3].Length - 1);
+                            pdfId = pdf.mergeDocuments(id1, id2);
                             resultString = "RESULT{0;\"" + pdfId + "\";}";
+
                             break;
 
                         case "READTEXTFROMPAGE":
 
-                        /*pdf = new PDFHandler();
-                        string text = pdf.ReadTextFromPage(parameters[2].Substring(1, 36), Int32.Parse(Regex.Replace(parameters[3], "[^-A-Za-z0-9 ]", "")));
+                            pdf = new PDFHandler();
+                            pdfId = parameters[2].Substring(1, parameters[2].Length - 2);
+                            //pdfId = pdf.OpenPDF(path);
+                            //Console.WriteLine("The ID to match : " + pdfId);
+                            //string text = pdf.ReadTextFromPage(parameters[2].Substring(1, 36), Int32.Parse(Regex.Replace(parameters[3], "[^-A-Za-z0-9 ]", "")));
+                            string text = pdf.ReadTextFromPage(pdfId, Int32.Parse(Regex.Replace(parameters[3], "[^-A-Za-z0-9 ]", "")));
+                            if (text.Equals(""))
+                            {
+                                resultString = "RESULT{1;\"ERROR\"}";
+                            }
+                            else
+                            {
+                                //resultString = "RESULT{0;\"" + text + "\";}";
+                                resultString = text;
+                            }
 
-                        if (text.Equals(""))
-                        {
-                            resultString = "RESULT{1;\"ERROR\"}";
-                        }
-                        else
-                        {
-                            resultString = "RESULT{0;\"" + text + "\";}";
-                        }
-
-                        break;*/
+                            break;
 
                         case "CLOSE":
 
-                            /*pdf = new PDFHandler();
-                            int res = pdf.ClosePDF(parameters[2].Substring(1, 36));
+                            pdf = new PDFHandler();
+                            int res = pdf.ClosePDF(parameters[2].Substring(1, parameters[2].Length - 2));
 
-                            resultString = "RESULT{" + res + ";}";*/
+                            resultString = "RESULT{" + res + ";}";
 
                             break;
 
                         default:
                             break;
-
+ */
                     }
-
+                    
                     break;
+
+              
+                           
 
                 case "MAIL":
 
@@ -276,7 +294,35 @@ class Server
 
                     break;
 
+                case "OCR":
+                    switch (Regex.Replace(parameters[1], "[^A-Za-z0-9 ]", ""))
+                    {
 
+                        case "READTEXTFROMIMAGE":
+                            OCRHandler ocr = new OCRHandler();
+
+                            string path = parameters[2].Substring(1, parameters[2].Length - 2);
+                            string res = ocr.getTextFromImage(path);
+
+                            resultString = "RESULT{" + res + ";}";
+
+                            break;
+
+                        case "READGERMANTEXTFROMIMAGE":
+                            ocr = new OCRHandler();
+
+                            path = parameters[2].Substring(1, parameters[2].Length - 2);
+                            res = ocr.readGermanText(path);
+
+                            resultString = "RESULT{" + res + ";}";
+
+                            break;
+
+                        default:
+                            break;
+
+                    }
+                    break;
                 case "APP2":
                     break;
 

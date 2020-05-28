@@ -31,6 +31,33 @@
           "lib/net40/IronPdf.Assets.Rendering.Windows.dll": {}
         }
       },
+      "IronOcr/4.4.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Drawing"
+        ],
+        "compile": {
+          "lib/net40/IronOcr.dll": {}
+        },
+        "runtime": {
+          "lib/net40/IronOcr.dll": {}
+        }
+      },
+      "IronOcr.Languages.German/4.4.4.11": {
+        "type": "package",
+        "dependencies": {
+          "IronOcr": "4.4.0"
+        },
+        "frameworkAssemblies": [
+          "System"
+        ],
+        "compile": {
+          "lib/net40/IronOcr.German.dll": {}
+        },
+        "runtime": {
+          "lib/net40/IronOcr.German.dll": {}
+        }
+      },
       "IronPdf/2020.3.2": {
         "type": "package",
         "dependencies": {
@@ -45,6 +72,15 @@
         },
         "runtime": {
           "lib/net40/IronPdf.dll": {}
+        }
+      },
+      "iTextSharp/5.5.13.1": {
+        "type": "package",
+        "compile": {
+          "lib/itextsharp.dll": {}
+        },
+        "runtime": {
+          "lib/itextsharp.dll": {}
         }
       },
       "MailKit/2.6.0": {
@@ -93,6 +129,15 @@
           "lib/net40/BouncyCastle.Crypto.dll": {}
         }
       },
+      "sautinsoft.pdffocus/7.5.3.27": {
+        "type": "package",
+        "compile": {
+          "lib/net461/SautinSoft.PdfFocus.dll": {}
+        },
+        "runtime": {
+          "lib/net461/SautinSoft.PdfFocus.dll": {}
+        }
+      },
       "Selenium.WebDriver/3.141.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -103,6 +148,18 @@
         },
         "runtime": {
           "lib/net45/WebDriver.dll": {}
+        }
+      },
+      "Tesseract/3.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Tesseract.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Tesseract.dll": {}
+        },
+        "build": {
+          "build/Tesseract.targets": {}
         }
       }
     },
@@ -136,6 +193,33 @@
           "lib/net40/IronPdf.Assets.Rendering.Windows.dll": {}
         }
       },
+      "IronOcr/4.4.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Drawing"
+        ],
+        "compile": {
+          "lib/net40/IronOcr.dll": {}
+        },
+        "runtime": {
+          "lib/net40/IronOcr.dll": {}
+        }
+      },
+      "IronOcr.Languages.German/4.4.4.11": {
+        "type": "package",
+        "dependencies": {
+          "IronOcr": "4.4.0"
+        },
+        "frameworkAssemblies": [
+          "System"
+        ],
+        "compile": {
+          "lib/net40/IronOcr.German.dll": {}
+        },
+        "runtime": {
+          "lib/net40/IronOcr.German.dll": {}
+        }
+      },
       "IronPdf/2020.3.2": {
         "type": "package",
         "dependencies": {
@@ -150,6 +234,15 @@
         },
         "runtime": {
           "lib/net40/IronPdf.dll": {}
+        }
+      },
+      "iTextSharp/5.5.13.1": {
+        "type": "package",
+        "compile": {
+          "lib/itextsharp.dll": {}
+        },
+        "runtime": {
+          "lib/itextsharp.dll": {}
         }
       },
       "MailKit/2.6.0": {
@@ -198,6 +291,15 @@
           "lib/net40/BouncyCastle.Crypto.dll": {}
         }
       },
+      "sautinsoft.pdffocus/7.5.3.27": {
+        "type": "package",
+        "compile": {
+          "lib/net461/SautinSoft.PdfFocus.dll": {}
+        },
+        "runtime": {
+          "lib/net461/SautinSoft.PdfFocus.dll": {}
+        }
+      },
       "Selenium.WebDriver/3.141.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -208,6 +310,18 @@
         },
         "runtime": {
           "lib/net45/WebDriver.dll": {}
+        }
+      },
+      "Tesseract/3.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Tesseract.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Tesseract.dll": {}
+        },
+        "build": {
+          "build/Tesseract.targets": {}
         }
       }
     },
@@ -241,6 +355,33 @@
           "lib/net40/IronPdf.Assets.Rendering.Windows.dll": {}
         }
       },
+      "IronOcr/4.4.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Drawing"
+        ],
+        "compile": {
+          "lib/net40/IronOcr.dll": {}
+        },
+        "runtime": {
+          "lib/net40/IronOcr.dll": {}
+        }
+      },
+      "IronOcr.Languages.German/4.4.4.11": {
+        "type": "package",
+        "dependencies": {
+          "IronOcr": "4.4.0"
+        },
+        "frameworkAssemblies": [
+          "System"
+        ],
+        "compile": {
+          "lib/net40/IronOcr.German.dll": {}
+        },
+        "runtime": {
+          "lib/net40/IronOcr.German.dll": {}
+        }
+      },
       "IronPdf/2020.3.2": {
         "type": "package",
         "dependencies": {
@@ -255,6 +396,15 @@
         },
         "runtime": {
           "lib/net40/IronPdf.dll": {}
+        }
+      },
+      "iTextSharp/5.5.13.1": {
+        "type": "package",
+        "compile": {
+          "lib/itextsharp.dll": {}
+        },
+        "runtime": {
+          "lib/itextsharp.dll": {}
         }
       },
       "MailKit/2.6.0": {
@@ -303,6 +453,15 @@
           "lib/net40/BouncyCastle.Crypto.dll": {}
         }
       },
+      "sautinsoft.pdffocus/7.5.3.27": {
+        "type": "package",
+        "compile": {
+          "lib/net461/SautinSoft.PdfFocus.dll": {}
+        },
+        "runtime": {
+          "lib/net461/SautinSoft.PdfFocus.dll": {}
+        }
+      },
       "Selenium.WebDriver/3.141.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -313,6 +472,18 @@
         },
         "runtime": {
           "lib/net45/WebDriver.dll": {}
+        }
+      },
+      "Tesseract/3.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Tesseract.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Tesseract.dll": {}
+        },
+        "build": {
+          "build/Tesseract.targets": {}
         }
       }
     },
@@ -346,6 +517,33 @@
           "lib/net40/IronPdf.Assets.Rendering.Windows.dll": {}
         }
       },
+      "IronOcr/4.4.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Drawing"
+        ],
+        "compile": {
+          "lib/net40/IronOcr.dll": {}
+        },
+        "runtime": {
+          "lib/net40/IronOcr.dll": {}
+        }
+      },
+      "IronOcr.Languages.German/4.4.4.11": {
+        "type": "package",
+        "dependencies": {
+          "IronOcr": "4.4.0"
+        },
+        "frameworkAssemblies": [
+          "System"
+        ],
+        "compile": {
+          "lib/net40/IronOcr.German.dll": {}
+        },
+        "runtime": {
+          "lib/net40/IronOcr.German.dll": {}
+        }
+      },
       "IronPdf/2020.3.2": {
         "type": "package",
         "dependencies": {
@@ -360,6 +558,15 @@
         },
         "runtime": {
           "lib/net40/IronPdf.dll": {}
+        }
+      },
+      "iTextSharp/5.5.13.1": {
+        "type": "package",
+        "compile": {
+          "lib/itextsharp.dll": {}
+        },
+        "runtime": {
+          "lib/itextsharp.dll": {}
         }
       },
       "MailKit/2.6.0": {
@@ -408,6 +615,15 @@
           "lib/net40/BouncyCastle.Crypto.dll": {}
         }
       },
+      "sautinsoft.pdffocus/7.5.3.27": {
+        "type": "package",
+        "compile": {
+          "lib/net461/SautinSoft.PdfFocus.dll": {}
+        },
+        "runtime": {
+          "lib/net461/SautinSoft.PdfFocus.dll": {}
+        }
+      },
       "Selenium.WebDriver/3.141.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -418,6 +634,18 @@
         },
         "runtime": {
           "lib/net45/WebDriver.dll": {}
+        }
+      },
+      "Tesseract/3.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Tesseract.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Tesseract.dll": {}
+        },
+        "build": {
+          "build/Tesseract.targets": {}
         }
       }
     }
@@ -459,6 +687,34 @@
         "lib/net40/IronPdf.Assets.Rendering.Windows.dll"
       ]
     },
+    "IronOcr/4.4.0": {
+      "sha512": "tOZdFo40tnmsHIEnKa0jcEAcvBPpgSexob3dLJt1Yqrvk5VZCcXRO8xto/bXB1Lj+Rkjm5zxLycU8zgruxEnsg==",
+      "type": "package",
+      "path": "ironocr/4.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ironocr.4.4.0.nupkg.sha512",
+        "ironocr.nuspec",
+        "lib/net40/IronOcr.dll",
+        "lib/net40/IronOcr.xml",
+        "readme.txt"
+      ]
+    },
+    "IronOcr.Languages.German/4.4.4.11": {
+      "sha512": "OfU0dLWO+uK53Baj+fnau8QyvflxU59z+3jNghsAPhRx0vC5eUFX2ajmglXkaW8bHJ89eiAFsp20mtnZ0pI8ZQ==",
+      "type": "package",
+      "path": "ironocr.languages.german/4.4.4.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ironocr.languages.german.4.4.4.11.nupkg.sha512",
+        "ironocr.languages.german.nuspec",
+        "lib/net40/IronOcr.German.dll",
+        "lib/net40/IronOcr.German.xml",
+        "lib/readme.txt"
+      ]
+    },
     "IronPdf/2020.3.2": {
       "sha512": "udEY94B8FGRVxD2mw2Hug+Xh7msVpEWRx7e+925eX6FM40qp9vC1U0ok8DoWAmVV6zObOiyL6IwxR7XcQPLIqA==",
       "type": "package",
@@ -473,6 +729,22 @@
         "lib/netstandard2.0/IronPdf.dll",
         "lib/netstandard2.0/IronPdf.xml",
         "readme.txt"
+      ]
+    },
+    "iTextSharp/5.5.13.1": {
+      "sha512": "xqzsYEYW/nMDjCtAXM5cl9fWil/Ju3HEGbsmoTKtltJc3M/9HNJzg++bCIOHm5uZITvRmZJWMO+S2u1yNG0gQg==",
+      "type": "package",
+      "path": "itextsharp/5.5.13.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "gnu-agpl-v3.0.md",
+        "itextsharp.5.5.13.1.nupkg.sha512",
+        "itextsharp.nuspec",
+        "lib/iTextSharp.xml",
+        "lib/itextsharp.dll",
+        "notice.txt"
       ]
     },
     "MailKit/2.6.0": {
@@ -554,6 +826,45 @@
         "portable.bouncycastle.nuspec"
       ]
     },
+    "sautinsoft.pdffocus/7.5.3.27": {
+      "sha512": "Ok0sFVqIjA1mW3Yo6ElbiyvnrS47FBy0v+Bcoas5CMbWsR0vokjbEUztq86olu2JCTHeH4k/NzZiV0XaPicgiA==",
+      "type": "package",
+      "path": "sautinsoft.pdffocus/7.5.3.27",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/SautinSoft.PdfFocus.XML",
+        "lib/net40/SautinSoft.PdfFocus.dll",
+        "lib/net45/SautinSoft.PdfFocus.XML",
+        "lib/net45/SautinSoft.PdfFocus.dll",
+        "lib/net461/SautinSoft.PdfFocus.XML",
+        "lib/net461/SautinSoft.PdfFocus.dll",
+        "lib/net47/SautinSoft.PdfFocus.XML",
+        "lib/net47/SautinSoft.PdfFocus.dll",
+        "lib/net48/SautinSoft.PdfFocus.dll",
+        "lib/net48/SautinSoft.PdfFocus.xml",
+        "lib/netcoreapp2.0/SautinSoft.PdfFocus.XML",
+        "lib/netcoreapp2.0/SautinSoft.PdfFocus.deps.json",
+        "lib/netcoreapp2.0/SautinSoft.PdfFocus.dll",
+        "lib/netcoreapp2.1/SautinSoft.PdfFocus.XML",
+        "lib/netcoreapp2.1/SautinSoft.PdfFocus.deps.json",
+        "lib/netcoreapp2.1/SautinSoft.PdfFocus.dll",
+        "lib/netcoreapp2.2/SautinSoft.PdfFocus.XML",
+        "lib/netcoreapp2.2/SautinSoft.PdfFocus.deps.json",
+        "lib/netcoreapp2.2/SautinSoft.PdfFocus.dll",
+        "lib/netcoreapp3.0/SautinSoft.PdfFocus.XML",
+        "lib/netcoreapp3.0/SautinSoft.PdfFocus.deps.json",
+        "lib/netcoreapp3.0/SautinSoft.PdfFocus.dll",
+        "lib/netcoreapp3.1/SautinSoft.PdfFocus.XML",
+        "lib/netcoreapp3.1/SautinSoft.PdfFocus.deps.json",
+        "lib/netcoreapp3.1/SautinSoft.PdfFocus.dll",
+        "lib/netstandard2.0/SautinSoft.PdfFocus.XML",
+        "lib/netstandard2.0/SautinSoft.PdfFocus.deps.json",
+        "lib/netstandard2.0/SautinSoft.PdfFocus.dll",
+        "sautinsoft.pdffocus.7.5.3.27.nupkg.sha512",
+        "sautinsoft.pdffocus.nuspec"
+      ]
+    },
     "Selenium.WebDriver/3.141.0": {
       "sha512": "wPqzXO3f79DzqauTZSzLMKiaBCN0Z2Mv7KvWP+hnV6EL88zh/pJJnFtdIR1X5wa3hsTOpF/bBJs45rz7kArsiA==",
       "type": "package",
@@ -572,15 +883,41 @@
         "selenium.webdriver.3.141.0.nupkg.sha512",
         "selenium.webdriver.nuspec"
       ]
+    },
+    "Tesseract/3.3.0": {
+      "sha512": "nTEU8lzCQFsnijUTNwp9kyaRVPQQHx0UqS+bqFgyG0jJm0j3z1i6ETbsA41PG806Xx4mKyC5BSvKlg/X/urzqQ==",
+      "type": "package",
+      "path": "tesseract/3.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/Tesseract.targets",
+        "lib/net20/Tesseract.dll",
+        "lib/net40/Tesseract.dll",
+        "lib/net45/Tesseract.dll",
+        "lib/netstandard2.0/Tesseract.dll",
+        "lib/netstandard2.0/Tesseract.xml",
+        "tesseract.3.3.0.nupkg.sha512",
+        "tesseract.nuspec",
+        "x64/liblept1753.dll",
+        "x64/libtesseract3052.dll",
+        "x86/liblept1753.dll",
+        "x86/libtesseract3052.dll"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.6.1": [
       "EPPlus >= 5.1.1",
+      "IronOcr >= 4.4.0",
+      "IronOcr.Languages.German >= 4.4.4.11",
       "IronPdf >= 2020.3.2",
       "MailKit >= 2.6.0",
       "MimeKit >= 2.6.0",
-      "Selenium.WebDriver >= 3.141.0"
+      "Selenium.WebDriver >= 3.141.0",
+      "Tesseract >= 3.3.0",
+      "iTextSharp >= 5.5.13.1",
+      "sautinsoft.pdffocus >= 7.5.3.27"
     ]
   },
   "packageFolders": {
@@ -620,6 +957,14 @@
             "target": "Package",
             "version": "[5.1.1, )"
           },
+          "IronOcr": {
+            "target": "Package",
+            "version": "[4.4.0, )"
+          },
+          "IronOcr.Languages.German": {
+            "target": "Package",
+            "version": "[4.4.4.11, )"
+          },
           "IronPdf": {
             "target": "Package",
             "version": "[2020.3.2, )"
@@ -635,6 +980,18 @@
           "Selenium.WebDriver": {
             "target": "Package",
             "version": "[3.141.0, )"
+          },
+          "Tesseract": {
+            "target": "Package",
+            "version": "[3.3.0, )"
+          },
+          "iTextSharp": {
+            "target": "Package",
+            "version": "[5.5.13.1, )"
+          },
+          "sautinsoft.pdffocus": {
+            "target": "Package",
+            "version": "[7.5.3.27, )"
           }
         }
       }
